@@ -1,0 +1,59 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "cloud.ysitd.auth.totp";
+option java_outer_classname = "TotpProto";
+
+package totp;
+
+import "google/protobuf/timestamp.proto";
+
+
+message IssueKeyRequest {
+    string issuer = 1;
+    string username = 2;
+}
+
+message IssueKeyReply {
+    string url = 1;
+    string recover = 2;
+}
+
+message ValidateRequest {
+    string issuer = 1;
+    string username = 2;
+    string passcode = 3;
+    google.protobuf.Timestamp time = 4;
+}
+
+message ValidateReply {
+    bool validate = 1;
+}
+
+message RecoverRequest {
+    string issuer = 1;
+    string username = 2;
+    string recover = 3;
+}
+
+message RecoverReply {
+    bool validate = 1;
+    string url = 2;
+    string recover = 3;
+}
+
+message RemoveKeyRequest {
+    string issuer = 1;
+    string username = 2;
+}
+
+message RemoveKeyReply {
+    bool removed = 1;
+}
+
+service Totp {
+    rpc issueKey(IssueKeyRequest) returns (IssueKeyReply) {}
+    rpc validate(ValidateRequest) returns (ValidateReply) {}
+    rpc recoverKey(RecoverRequest) returns (RecoverReply) {}
+    rpc removeKey(RemoveKeyRequest) returns (RemoveKeyReply) {}
+}

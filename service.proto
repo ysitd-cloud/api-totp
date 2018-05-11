@@ -7,7 +7,10 @@ option java_outer_classname = "TotpProto";
 package totp;
 
 import "google/protobuf/timestamp.proto";
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
 
+option (gogoproto.marshaler_all) = true;
+option (gogoproto.unmarshaler_all) = true;
 
 message IssueKeyRequest {
     string issuer = 1;
@@ -23,7 +26,7 @@ message ValidateRequest {
     string issuer = 1;
     string username = 2;
     string passcode = 3;
-    google.protobuf.Timestamp time = 4;
+    google.protobuf.Timestamp time = 4 [(gogoproto.stdtime) = true];
 }
 
 message ValidateReply {

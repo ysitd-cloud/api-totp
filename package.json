@@ -1,0 +1,22 @@
+{
+  "name": "@ycloud-api/totp",
+  "version": "1.1.2",
+  "main": "service_grpc_pb.js",
+  "repository": "https://github.com/ysitd-cloud/api-totp.git",
+  "author": "Tony Yip <tonyhhyip@gmail.com>",
+  "license": "MIT",
+  "peerDependencies": {
+    "google-protobuf": "^3.5.0",
+    "grpc": "^1.8.0"
+  },
+  "devDependencies": {
+    "grpc-tools": "^1.6.6",
+    "google-protobuf": "^3.5.0",
+    "grpc": "^1.8.0"
+  },
+  "scripts": {
+    "generate": "yarn generate:file && yarn generate:vendor",
+    "generate:file": "grpc_tools_node_protoc -I . -I vendor --js_out=import_style=commonjs,binary:. --grpc_out=. --plugin=protoc-gen-grpc=`which grpc_tools_node_protoc_plugin` service.proto",
+    "generate:vendor": "mkdir -p github.com/gogo/protobuf/gogoproto && grpc_tools_node_protoc -I vendor/github.com/gogo/protobuf/gogoproto --js_out=import_style=commonjs,binary:github.com/gogo/protobuf/gogoproto gogo.proto"
+  }
+}
